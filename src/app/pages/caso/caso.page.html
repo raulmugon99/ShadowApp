@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-button (click)="Cerrar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="light">{{ caso.Titulo }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div style="text-align: center;" class="ion-padding" *ngIf="bCargando">
+    <ion-spinner color="light" name="crescent"></ion-spinner>
+  </div>
+
+  <div *ngIf="!bCargando">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title color="light">Descripción del Crimen</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ caso.Descripcion }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title color="light">Sospechosos</ion-card-title>
+      </ion-card-header>
+      <ion-list>
+        <ion-item *ngFor="let sospechoso of caso.Sospechoso" >
+
+          <ion-checkbox *ngIf="!bCasoResuelto" slot="start" (ionChange)="SospechosoSelEvent( $event, sospechoso )" [checked]="SospechosoSeleccionado == sospechoso"></ion-checkbox>
+         
+          <ion-icon name="checkbox" slot="start" color="success" *ngIf="caso.Resolucion[0]?.sospechoso_id == sospechoso.id"></ion-icon>
+         
+          <ion-label>
+            <h3>
+              {{ sospechoso.Nombre }}
+            </h3>
+            <p>
+              "{{ sospechoso.Descripcion }}"
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+
+  </div>
+
+  <div class="ion-padding" *ngIf="!bCasoResuelto">
+    <ion-button (click)="Resolver()" expand="block" style="--background: #252538;">
+      Resolver
+    </ion-button>
+  </div>
+
+  <div class="ion-padding" *ngIf="!bCasoResuelto">
+    <ion-button (click)="VerPista( 0 )" expand="block" style="--background: #252538;">
+      Ver La Pista 1 ( Anuncio )
+    </ion-button>
+
+    <ion-button (click)="VerPista( 1 )" expand="block" style="--background: #252538;">
+      Ver La Pista 2 ( Anuncio )
+    </ion-button>
+  </div>
+
+
+  <div *ngIf="bCasoResuelto">
+     <ion-card>
+      <ion-card-header>
+        <ion-card-title color="light">Resolución</ion-card-title>
+      </ion-card-header>
+      <ion-list>
+        <ion-item>
+           <ion-label>
+            <h3>
+              Asesino - {{ Asesino?.Nombre }}
+            </h3>
+             <p>
+              "{{ Asesino?.Resolucion }}"
+            </p>
+           </ion-label>
+
+        </ion-item>
+
+         <ion-item>
+           <ion-label>
+            <h3>
+              Tu elección - {{ AsesinoResuelto?.Nombre }}
+            </h3>
+             <p>
+              "{{ AsesinoResuelto?.Resolucion }}"
+            </p>
+           </ion-label>
+
+        </ion-item>
+
+      </ion-list>
+     </ion-card>
+  </div>
+
+</ion-content>

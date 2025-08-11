@@ -1,0 +1,46 @@
+<ion-content [fullscreen]="true">
+  <ion-header>
+    <h1 style="text-align: center; color: white;">
+      RANKING
+    </h1>
+  </ion-header>
+
+  <ion-segment mode="md" value="semanal" (ionChange)="CambioTipoRanking( $event )">
+    <ion-segment-button value="semanal">
+      Semanal
+    </ion-segment-button>
+
+    <ion-segment-button value="mensual">
+      Mensual
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list>
+
+    <ion-item style="--background: #27273f; color: white;">
+      <ion-label>
+        #
+      </ion-label>
+      <ion-label>
+        Nombre
+      </ion-label>
+      <ion-label>
+        Puntos
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngFor="let rank of Ranking" style="--background: #1e1e2f; color: white;">
+      <ion-label>
+      {{ rank.puesto }}
+      </ion-label>
+      <ion-label>
+      {{ rank.nombredeusuario}}
+      </ion-label>
+      <ion-label>
+      {{ rank.puntos }}
+      </ion-label>
+
+    </ion-item>
+
+  </ion-list>
+</ion-content>

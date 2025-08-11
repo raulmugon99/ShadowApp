@@ -1,0 +1,21 @@
+<ion-content [fullscreen]="true">
+   <ion-header>
+    <h1 style="text-align: center; color: white;">
+      PERFIL
+    </h1>
+  </ion-header>
+
+
+  <ion-list [inset]="true" lines="none">
+    <ion-item style="--background: #68688b;" detail button>
+      <ion-label>Notificaciones</ion-label>
+    </ion-item>
+    <ion-item style="--background: #68688b;" detail button>
+      <ion-label>Soporte / Contacto</ion-label>
+    </ion-item>
+    <ion-item (click)="CerrarSesion()" style="--background: #68688b;" detail button>
+      Cerrar Sesión
+    </ion-item>
+  </ion-list>
+
+</ion-content>

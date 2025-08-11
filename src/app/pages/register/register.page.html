@@ -1,0 +1,13 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <h1>
+    REGISTRO
+  </h1>
+
+     <ion-input type="text" [(ngModel)]="Usuario.email" mode="md" label="Correo Electrónico" label-placement="floating" fill="outline" placeholder="Introduce tu correo electrónico..."></ion-input>
+     <ion-input style="margin-top: 8px;" type="password" [(ngModel)]="Usuario.password" mode="md" label="Contraseña" label-placement="floating" fill="outline" placeholder="Introduce tu contraseña..."></ion-input>
+      <ion-button (click)="Registrarse()" expand="block" style="margin-top: 8px;">
+        Registrarse
+      </ion-button>
+
+</ion-content>

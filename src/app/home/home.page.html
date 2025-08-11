@@ -1,20 +1,77 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<!-- <ion-header style="--background: red">
+  <ion-toolbar style="--background: transparent">
+    <ion-title>Caso del Día</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
+
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-header>
+    <h1 style="text-align: center; color: white;">
+      INICIO
+    </h1>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card style="margin: 0 0 16px 0;">
+    <ion-card-header>
+      <ion-card-title style="color: white;">{{ caso.Titulo }}</ion-card-title>
+      <ion-card-subtitle>Dificultad: 
+        <ion-icon *ngFor="let star of dificultadArray" name="star" color="warning"></ion-icon>
+      </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p style="color: lightgray;">{{ caso.Resumen }}</p>
+      <p style="margin-top: 8px;"><strong>Tiempo restante:</strong> {{ tiempoRestante }}</p>
+      <p style="margin-top: 8px;"><strong>Estado:</strong> Resuelto </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" color="primary" (click)="IrAlCaso( caso.id )">Ver Caso Completo</ion-button>
+
+  <ion-card style="margin: 16px 0 0 0;">
+    <ion-card-header>
+      <ion-card-title style="color: white;">Tu Progreso</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Puntos acumulados:</strong> {{ puntos }}</p>
+      <p><strong>Ranking actual:</strong> #{{ ranking }}</p>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card style="margin: 16px 0 0 0;">
+    <ion-card-header>
+      <ion-card-title style="color: white;">Ranking Semanal</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            #
+          </ion-label>
+          <ion-label>
+            Nombre
+          </ion-label>
+          <ion-label>
+            Puntos
+          </ion-label>
+        </ion-item>
+        <ion-item *ngFor="let rank of top3">
+          <ion-label>
+            {{ rank.puesto_ }}
+          </ion-label>
+          <ion-label>
+            {{ rank.nombredeusuario }}
+          </ion-label>
+          <ion-label>
+            {{ rank.puntos }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
 </ion-content>

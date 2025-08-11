@@ -1,0 +1,26 @@
+ion-content {
+  --background: #121221;
+  color: #ffffff;
+}
+
+ion-card {
+  background: #252538;
+  margin-bottom: 16px;
+  border-radius: 12px;
+}
+
+ion-list ion-item {
+  --background: #1b1b2e;
+  color: #ffffff;
+  --color: #ffffff;
+}
+
+ion-card-content {
+    color: lightgray;
+  --color: lightgray;
+}
+
+ion-checkbox::part(container) {
+  border-radius: 6px;
+
+}

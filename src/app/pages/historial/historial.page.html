@@ -1,0 +1,37 @@
+<ion-content [fullscreen]="true">
+ 
+  <ion-header>
+    <h1 style="text-align: center; color: white;">
+      HISTORIAL
+    </h1>
+  </ion-header>
+
+  <ion-list style="padding: 16px; --background: #1e1e2f; background: #1e1e2f;" lines="none">
+
+    <ion-item *ngFor="let hist of Historial" style="--background: #59597c; margin-bottom: 8px; border-radius: 12px;">
+      <ion-label>
+        <h3>
+{{ hist.titulo }}
+        </h3>
+        <p>
+    <ion-icon *ngFor="let star of [].constructor( hist.dificultad )" name="star" color="warning"></ion-icon>
+        </p>
+        <p>
+          {{ hist.puntuacion }}
+        </p>
+        <p>
+          {{ hist.resumen }}
+        </p>
+        <p>
+          {{ hist.fechadisponible }}
+        </p>
+      </ion-label>
+      
+<!-- dif: {{ hist.dificultad }} -->
+      
+  
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

@@ -13,15 +13,17 @@ import { star } from 'ionicons/icons';
   standalone: true,
   imports: [IonSpinner, IonLabel, IonIcon, IonItem, IonList, IonContent, IonHeader, CommonModule, FormsModule]
 })
-export class HistorialPage implements OnInit {
+export class HistorialPage {
 
   bCargando = true;
   Historial: any[] = [];
+  
   constructor(private _casos: CasosService) { 
     addIcons( {star} );
   }
 
-  async ngOnInit() {
+  async ionViewDidEnter() {
+    this.bCargando = true;
     this.Historial = await this._casos.ObtenerHistorial();
     this.bCargando = false;
   }

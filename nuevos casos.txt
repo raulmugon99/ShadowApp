@@ -9,6 +9,7 @@ Descripcion y declaraciones largas
 Que en las declaraciones, los personajes puedan nombrar a otros para despirtar o descartar
 Se pueden incluir horas, tanto en la descripcion como en las declaraciones, para descartar o incriminar personajes
 Tienen que ser dos pistas, la que tenga orden 1, tiene que ser una pequeña ayuda, pero la pista con orden 2, tiene que ser una pista que casi ayude a resolver el caso
+Lo suyo es que el usuario pueda resolver el caso sin ver las pistas
 
 Que tenga el siguiente formato de insert:
 DO $$

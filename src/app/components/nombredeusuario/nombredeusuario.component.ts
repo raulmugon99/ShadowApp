@@ -21,6 +21,7 @@ export class NombredeusuarioComponent  implements OnInit {
   async EstablecerNombre() {
 
     await this.auth.EstablecerNombreUsuario( this.NombreDeUsuario );
+    await this.auth.ObtenerSesionActual();
     await this.CerrarModal();
 
   }

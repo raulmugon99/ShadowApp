@@ -16,7 +16,7 @@
 
     <div style="text-align: center; margin-top: 16px;">
       <h2>
-        {{ auth.UsuarioActual.NombreDeUsuario }}
+        {{ auth.UsuarioActual?.NombreDeUsuario }}
       </h2>
       <p style="margin: 0; color: lightgray; font-size: 12px;">
         {{ auth.SesionActual?.user?.email }}

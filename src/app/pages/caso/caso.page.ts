@@ -32,6 +32,11 @@ export class CasoPage implements OnInit {
   }
 
   async ngOnInit() {
+    this.CargarCaso();
+  }
+
+  async CargarCaso() {
+    this.bCargando = true;
 
     const data = await this._casos.Get_Caso_byId( this.idCaso )
     this.caso = data;
@@ -39,7 +44,7 @@ export class CasoPage implements OnInit {
     if( this.caso.Resolucion.length > 0 ) {
       this.bCasoResuelto = true;
       this.Asesino = this.caso.Sospechoso.filter( ( ase: any ) => ase.Asesino == true )[0];
-      this.AsesinoResuelto = this.caso.Sospechoso.filter( ( ase: any ) => this.caso.Resolucion[0].sospechoso_id )[0];
+      this.AsesinoResuelto = this.caso.Sospechoso.filter( ( ase: any ) => ase.id == this.caso.Resolucion[0].sospechoso_id )[0];
     }
 
     this.bCargando = false;
@@ -80,6 +85,7 @@ export class CasoPage implements OnInit {
     }
     
     await this._ads.showInterstitial();
+    this.CargarCaso();
 
   }
 

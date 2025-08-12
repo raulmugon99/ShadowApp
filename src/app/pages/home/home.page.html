@@ -16,18 +16,18 @@
 
   <ion-card style="margin: 0 0 16px 0;">
     <ion-card-header>
-      <ion-card-title style="color: white;">{{ caso.Titulo }}</ion-card-title>
+      <ion-card-title style="color: white;">{{ CasoActual.Titulo }}</ion-card-title>
       <ion-card-subtitle>Dificultad: 
         <ion-icon *ngFor="let star of dificultadArray" name="star" color="warning"></ion-icon>
       </ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-      <p style="color: lightgray; margin-bottom: 0px;">{{ caso.Resumen }}</p>
+      <p style="color: lightgray; margin-bottom: 0px;">{{ CasoActual.Resumen }}</p>
       <p style="margin-top: 16px;"><strong>Tiempo restante:</strong> {{ tiempoRestante }}</p>
-      <p style="margin-top: 8px;"><strong>Estado:</strong> {{ caso.Resolucion?.length > 0 ? 'Resuelto' : 'Pendiente' }} </p>
+      <p style="margin-top: 8px;"><strong>Estado:</strong> {{ CasoActual.Resolucion?.length > 0 ? 'Resuelto' : 'Pendiente' }} </p>
 
-    <ion-button style="margin-top: 12px; --background: #1e1e2f;" expand="block" (click)="IrAlCaso( caso.id )">Resolver</ion-button>
+    <ion-button style="margin-top: 12px; --background: #1e1e2f;" expand="block" (click)="IrAlCaso( CasoActual.id )">Resolver</ion-button>
 
     </ion-card-content>
   </ion-card>

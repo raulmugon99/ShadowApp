@@ -86,7 +86,7 @@
 
         </ion-item>
 
-         <ion-item>
+         <ion-item *ngIf="Asesino.id != AsesinoResuelto.id">
            <ion-label>
             <h3>
               Tu elección - {{ AsesinoResuelto?.Nombre }}

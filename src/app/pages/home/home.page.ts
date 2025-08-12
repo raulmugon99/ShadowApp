@@ -16,11 +16,7 @@ import { RouterLink } from '@angular/router';
 })
 export class HomePage {
 
-  constructor(private _casos: CasosService, public auth: AuthService, private _modal: ModalController) {
-    addIcons({star})
-  }
-
-  caso: any = {};
+  CasoActual: any = {};
   puntos = 0;
   ranking = 0;
   pistasUsadas = 0;
@@ -28,20 +24,23 @@ export class HomePage {
   tiempoRestante = '';
   dificultadArray: number[] = [];
 
-  async ngOnInit() {
-  
-    this.actualizarTiempo();
-    setInterval(() => this.actualizarTiempo(), 60000);
-    const data: any = await this._casos.getActiveCases();
+  constructor(private _casos: CasosService, public auth: AuthService, private _modal: ModalController) {
+    addIcons({star})
+  }
 
-    this.caso = data;
-    this.dificultadArray = Array(this.caso.Dificultad).fill(0);
+  async ionViewDidEnter() {
+    const data: any = await this._casos.getActiveCases();
+    this.CasoActual = data;
+    this.dificultadArray = Array( this.CasoActual.Dificultad ).fill(0);
     const Ranking = await this._casos.ObtenerRanking();
     this.puntos = Ranking?.Puntos || 0;
     this.ranking = Ranking?.Posicion || 0;
-
     this.top3 = await this._casos.ObtenerRanking_2();
+  }
 
+  async ngOnInit() {
+    this.actualizarTiempo();
+    setInterval(() => this.actualizarTiempo(), 60000);
   }
 
   actualizarTiempo() {
@@ -63,6 +62,10 @@ export class HomePage {
       } );
 
       await modal.present();
+
+      await modal.onDidDismiss().then( ( data ) => {
+        this.ionViewDidEnter();
+      })
     }
   }
 

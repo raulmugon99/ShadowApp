@@ -11,14 +11,15 @@ import { CasosService } from 'src/app/services/casos.service';
   standalone: true,
   imports: [IonSpinner, IonItem, IonLabel, IonList, IonSegment, IonContent, IonHeader, CommonModule, FormsModule, IonSegment, IonSegmentButton]
 })
-export class RankingPage implements OnInit {
-
-  constructor(private _casos: CasosService) { }
+export class RankingPage {
 
   bCargando = true;
   sOpcionMostrar = 'semanal';
   Ranking: any[] = [];
-  async ngOnInit() {
+
+  constructor(private _casos: CasosService) { }
+
+  async ionViewDidEnter() {
     this.CargarRankingSeleccionado();
   }
 

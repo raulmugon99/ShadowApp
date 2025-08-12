@@ -54,19 +54,23 @@ export class HomePage {
   }
 
   async IrAlCaso( idCaso: number) {
-    if( await this._casos.EsCasoDiaHoy( idCaso ) ) {
-
-      const modal = await this._modal.create( {
-        component: CasoPage,
-        componentProps: { idCaso }
-      } );
-
-      await modal.present();
-
-      await modal.onDidDismiss().then( ( data ) => {
-        this.ionViewDidEnter();
-      })
+    if( !await this._casos.EsCasoDiaHoy( idCaso ) ) {
+      alert( 'El caso seleccionado no pertenece al dia actual. Se recargará.' );
+      this.ionViewDidEnter();
+      return;
     }
+
+    const modal = await this._modal.create( {
+      component: CasoPage,
+      componentProps: { idCaso }
+    } );
+
+    await modal.present();
+
+    await modal.onDidDismiss().then( ( data ) => {
+      this.ionViewDidEnter();
+    })
+    
   }
 
 }

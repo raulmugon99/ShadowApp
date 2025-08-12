@@ -10,7 +10,7 @@ export class CasosService {
  constructor(private supabaseService: SupabaseService, private auth: AuthService) {}
 
   async getActiveCases() {
-    let sFechaHoy = this.ObtenerFechaHoy();
+    let sFechaHoy =  this.ObtenerFechaHoy(); // '2025-08-10' //
     const usuarioId = this.auth.SesionActual?.user.id;
 
     const { data, error } = await this.supabaseService.supabase
@@ -191,6 +191,7 @@ export class CasosService {
 
       const { data, error } = await this.supabaseService.supabase
         .rpc('historial_usuario', { usuario: usuarioId } )
+        .order( 'fechadisponible' , { ascending : true})
 
       if (error) {
         console.error(error);

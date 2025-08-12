@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ModalController, IonHeader, IonToolbar, IonContent, IonInput, IonButton } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-nombredeusuario',
@@ -14,11 +15,20 @@ import { FormsModule } from '@angular/forms';
 export class NombredeusuarioComponent  implements OnInit {
 
   NombreDeUsuario = '';
-  constructor(private auth: AuthService, private _modal: ModalController) { }
+  constructor(private auth: AuthService, private _modal: ModalController, private utils: UtilsService) { }
 
   ngOnInit() {}
 
   async EstablecerNombre() {
+    if( !this.ValidarNombre() ) {
+      await this.utils.ShowToast( 'El nombre de usuario solo puede contener letras y números.' , 'danger' );
+      return;
+    }
+
+    if( await this.auth.ExisteNombreDeUsuario( this.NombreDeUsuario ) ) {
+      await this.utils.ShowToast( 'El nombre de usuario indicado ya está en uso.' , 'danger' );
+      return;
+    }
 
     await this.auth.EstablecerNombreUsuario( this.NombreDeUsuario );
     await this.auth.ObtenerSesionActual();
@@ -30,6 +40,11 @@ export class NombredeusuarioComponent  implements OnInit {
 
     await this._modal.dismiss();
     
+  }
+
+  ValidarNombre() {
+    const regex = /^[a-zA-Z0-9]+$/;
+    return regex.test(this.NombreDeUsuario);
   }
 
 }

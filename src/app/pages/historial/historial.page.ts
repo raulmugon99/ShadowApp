@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonList, IonItem, IonIcon, IonLabel, IonSpinner } from '@ionic/angular/standalone';
+import { ModalController, IonContent, IonHeader, IonList, IonItem, IonIcon, IonLabel, IonSpinner } from '@ionic/angular/standalone';
 import { CasosService } from 'src/app/services/casos.service';
 import { addIcons } from 'ionicons';
 import { star } from 'ionicons/icons';
+import { CasoPage } from '../caso/caso.page';
 
 @Component({
   selector: 'app-historial',
@@ -18,7 +19,7 @@ export class HistorialPage {
   bCargando = true;
   Historial: any[] = [];
   
-  constructor(private _casos: CasosService) { 
+  constructor(private _casos: CasosService, private _modal: ModalController) { 
     addIcons( {star} );
   }
 
@@ -26,6 +27,22 @@ export class HistorialPage {
     this.bCargando = true;
     this.Historial = await this._casos.ObtenerHistorial();
     this.bCargando = false;
+  }
+
+  async IrAlCaso( idCaso: number) {
+    // if( !await this._casos.EsCasoDiaHoy( idCaso ) ) {
+    //   alert( 'El caso seleccionado no pertenece al dia actual. Se recargará.' );
+    //   this.ionViewDidEnter();
+    //   return;
+    // }
+
+    const modal = await this._modal.create( {
+      component: CasoPage,
+      componentProps: { idCaso }
+    } );
+
+    await modal.present();
+    
   }
 
 }

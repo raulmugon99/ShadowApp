@@ -6,6 +6,7 @@ import { addIcons } from 'ionicons';
 import { attach, logoApple, logoGoogle, mail, mailOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { NombredeusuarioComponent } from 'src/app/components/nombredeusuario/nombredeusuario.component';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ import { NombredeusuarioComponent } from 'src/app/components/nombredeusuario/nom
 })
 export class LoginPage implements OnInit {
 
-  constructor(private auth: AuthService, private router: NavController, private _modal: ModalController) { 
+  constructor(private auth: AuthService, private router: NavController, private _modal: ModalController, private utils: UtilsService) { 
     addIcons({logoGoogle,logoApple,mailOutline,mail});
   }
 
@@ -26,7 +27,12 @@ export class LoginPage implements OnInit {
   Usuario = { email: '', password: '' }
   async IniciarSesion() {
 
-    const data = await this.auth.signIn( this.Usuario.email, this.Usuario.password );
+    const { data, error } = await this.auth.signIn( this.Usuario.email, this.Usuario.password );
+    if( error ) {
+      await this.utils.ShowToast( error.message, 'danger' )
+      return;
+    }
+    // console.log( data  )
     await this.auth.ObtenerSesionActual();
     this.ComprobarNombreUsuario();
     await this.router.navigateRoot( 'tabs' );
@@ -52,10 +58,20 @@ export class LoginPage implements OnInit {
   }
 
   async Google() {
-     const data = await this.auth.Google();
-     await this.auth.ObtenerSesionActual();
-    this.ComprobarNombreUsuario();
-    await this.router.navigateRoot( 'tabs' );
+    const response = await this.auth.Google();
+
+    console.log( response )
+    if( response?.error ) {
+      await this.utils.ShowToast( response.error.message, 'danger' )
+      return;
+    }
+
+    if( response ) {
+      await this.auth.ObtenerSesionActual();
+      this.ComprobarNombreUsuario();
+      await this.router.navigateRoot( 'tabs' );
+    }
+
   }
 
 }

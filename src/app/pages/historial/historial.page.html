@@ -12,7 +12,7 @@
 
   <ion-list style="padding: 16px; --background: transparent; background: transparent;" lines="none" *ngIf="!bCargando">
 
-    <ion-item *ngFor="let hist of Historial" style="--background: #2e2e3f; margin-bottom: 8px; border-radius: 12px;">
+    <ion-item *ngFor="let hist of Historial" style="--background: #2e2e3f; margin-bottom: 8px; border-radius: 12px;" button (click)="IrAlCaso( hist.id )">
       <ion-label color="light">
         <h2>
           {{ hist.titulo }}

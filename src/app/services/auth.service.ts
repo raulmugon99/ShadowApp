@@ -110,4 +110,19 @@ export class AuthService {
     })
   }
 
+  async ExisteNombreDeUsuario( sNombreUsuario: string ): Promise< boolean > {
+    return new Promise( async ( resolve ) => {
+      const { data , error } = await this.supabaseService.supabase.from('Usuario')
+      .select()
+      .ilike( 'NombreDeUsuario' , sNombreUsuario )
+
+      if( data?.length == 0 ) {
+        resolve( false )
+      } else {
+        resolve( true )
+      }
+
+    })
+  }
+
 }

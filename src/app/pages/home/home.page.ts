@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ModalController, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonCol, IonRow, IonCard, IonButton, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonItem, IonList, IonLabel } from '@ionic/angular/standalone';
-import { NavController } from '@ionic/angular/standalone';
+import { ModalController, IonHeader, IonContent, IonCard, IonButton, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonItem, IonList, IonLabel } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { star } from 'ionicons/icons';
-import { CasosService } from '../services/casos.service';
-import { AuthService } from '../services/auth.service';
-import { CasoPage } from '../pages/caso/caso.page';
+import { CasosService } from '../../services/casos.service';
+import { AuthService } from '../../services/auth.service';
+import { CasoPage } from '../../pages/caso/caso.page';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonLabel, IonList, IonItem, IonIcon, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonButton, IonCard, IonRow, IonCol, IonGrid, IonHeader, IonToolbar, IonTitle, IonContent, CommonModule ],
+  imports: [ RouterLink, IonLabel, IonList, IonItem, IonIcon, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonButton, IonCard, IonHeader, IonContent, CommonModule ],
 })
 export class HomePage {
 
@@ -20,13 +20,11 @@ export class HomePage {
     addIcons({star})
   }
 
- caso: any = {};
-
-  puntos = 1350;
-  ranking = 23;
+  caso: any = {};
+  puntos = 0;
+  ranking = 0;
   pistasUsadas = 0;
   top3: any[] = [];
-
   tiempoRestante = '';
   dificultadArray: number[] = [];
 
@@ -35,7 +33,7 @@ export class HomePage {
     this.actualizarTiempo();
     setInterval(() => this.actualizarTiempo(), 60000);
     const data: any = await this._casos.getActiveCases();
-    // console.log( data )
+
     this.caso = data;
     this.dificultadArray = Array(this.caso.Dificultad).fill(0);
     const Ranking = await this._casos.ObtenerRanking();
@@ -43,7 +41,7 @@ export class HomePage {
     this.ranking = Ranking?.Posicion || 0;
 
     this.top3 = await this._casos.ObtenerRanking_2();
-    // console.log( this.top3 )
+
   }
 
   actualizarTiempo() {
@@ -57,19 +55,15 @@ export class HomePage {
   }
 
   async IrAlCaso( idCaso: number) {
-    // if( await this._casos.EsCasoDiaHoy( idCaso ) ) {
-      // await this.router.navigateRoot( `caso/${idCaso}` )
-        const modal = await this._modal.create( {
-      component: CasoPage,
-      componentProps: { idCaso }
-    } )
+    if( await this._casos.EsCasoDiaHoy( idCaso ) ) {
 
-    await modal.present();
-    // }
-  }
+      const modal = await this._modal.create( {
+        component: CasoPage,
+        componentProps: { idCaso }
+      } );
 
-  async VerCaso() {
- 
+      await modal.present();
+    }
   }
 
 }

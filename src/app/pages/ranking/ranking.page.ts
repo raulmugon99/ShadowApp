@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonSegmentButton, IonSegment, IonList, IonListHeader, IonLabel, IonItem } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonSegmentButton, IonSegment, IonList, IonLabel, IonItem, IonSpinner } from '@ionic/angular/standalone';
 import { CasosService } from 'src/app/services/casos.service';
 
 @Component({
@@ -9,12 +9,13 @@ import { CasosService } from 'src/app/services/casos.service';
   templateUrl: './ranking.page.html',
   styleUrls: ['./ranking.page.scss'],
   standalone: true,
-  imports: [IonItem, IonLabel, IonList, IonSegment, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonSegment, IonSegmentButton, IonListHeader]
+  imports: [IonSpinner, IonItem, IonLabel, IonList, IonSegment, IonContent, IonHeader, CommonModule, FormsModule, IonSegment, IonSegmentButton]
 })
 export class RankingPage implements OnInit {
 
   constructor(private _casos: CasosService) { }
 
+  bCargando = true;
   sOpcionMostrar = 'semanal';
   Ranking: any[] = [];
   async ngOnInit() {
@@ -22,6 +23,7 @@ export class RankingPage implements OnInit {
   }
 
   async CargarRankingSeleccionado() {
+    this.bCargando = true;
     this.Ranking = [];
 
     if( this.sOpcionMostrar == 'semanal' ) {
@@ -30,6 +32,7 @@ export class RankingPage implements OnInit {
       this.Ranking = await this._casos.ObtenerRanking_Mensual();
     }
 
+    this.bCargando = false;
   }
 
   CambioTipoRanking(ev: any) {

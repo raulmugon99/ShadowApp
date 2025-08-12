@@ -1,0 +1,60 @@
+Genera un caso pero para hacer insert directamente en las siguentes tablas / campos de supabase:
+Caso( "id" ( Debe ser el siguinte id ), "Titulo", "Descripcion", "Resumen", "Dificultad", "FechaDisponible" )
+Pista ( "case_id" ( id del caso que se hace el insert ), "Orden", "Descripcion", "Titulo" )
+Sospechoso( "case_id" ( id del caso que se hace el insert ), "Nombre", "Descripcion", "Asesino", "Resolucion" )
+
+Observaciones a tener en cuenta:
+Que sea un caso nuevo, que nunca me hayas dicho
+Descripcion y declaraciones largas
+Que en las declaraciones, los personajes puedan nombrar a otros para despirtar o descartar
+Se pueden incluir horas, tanto en la descripcion como en las declaraciones, para descartar o incriminar personajes
+Tienen que ser dos pistas, la que tenga orden 1, tiene que ser una pequeña ayuda, pero la pista con orden 2, tiene que ser una pista que casi ayude a resolver el caso
+
+Que tenga el siguiente formato de insert:
+DO $$
+DECLARE
+  nuevo_id INTEGER;
+  nueva_fecha DATE;
+BEGIN
+  SELECT COALESCE(MAX("id"), 0), COALESCE(MAX("FechaDisponible"), '2025-08-12') 
+  INTO nuevo_id, nueva_fecha 
+  FROM "Caso";
+
+  nuevo_id := nuevo_id + 1;
+  nueva_fecha := nueva_fecha + INTERVAL '1 day';
+
+  INSERT INTO "Caso" ("id", "Titulo", "Descripcion", "Resumen", "Dificultad", "FechaDisponible")
+  VALUES (
+    nuevo_id,
+    'La Tragedia en la Biblioteca Antigua',
+    'En una noche lluviosa, el reconocido historiador Dr. Ricardo Torres fue encontrado sin vida en la biblioteca antigua de la universidad. El cuerpo yacía junto a una estantería de libros raros, y la policía determinó que la muerte fue causada por un fuerte golpe en la cabeza. Cuatro personas estuvieron en la biblioteca entre las 9:00 pm y las 10:30 pm y todas tenían motivos para desearle mal. Lee sus declaraciones, que se mencionan entre sí, y usa los horarios para descubrir quién es el culpable.',
+    'Un asesinato en una biblioteca, donde los secretos y rencores salen a la luz.',
+    4,
+    nueva_fecha
+  );
+
+  INSERT INTO "Pista" ("case_id", "Orden", "Descripcion", "Titulo") VALUES
+  (nuevo_id, 1, 'Se encontró una antigua daga con manchas de sangre cerca del cuerpo, pero no se sabe a quién pertenece.', 'La daga sangrienta'),
+  (nuevo_id, 2, 'Se escuchó un ruido fuerte, como un objeto cayendo, justo antes de que se encontrara el cuerpo.', 'El estruendo misterioso');
+
+  INSERT INTO "Sospechoso" ("case_id", "Nombre", "Descripcion", "Asesino", "Resolucion") VALUES
+  (nuevo_id, 'Elena Ruiz', 
+   'Profesora de literatura y colega cercana del Dr. Torres. Dijo que estuvo organizando documentos en su despacho desde las 9:00 pm hasta las 9:45 pm, pero admite que discutió con el Dr. Torres sobre la autenticidad de ciertos textos históricos.', 
+   false,
+   'Elena tiene una coartada respaldada por otros colegas, aunque su discusión con la víctima era intensa, no hay pruebas de que estuviera en la biblioteca en el momento del asesinato.'),
+  
+  (nuevo_id, 'Javier Morales', 
+   'Estudiante de posgrado y asistente del Dr. Torres, conocido por su ambición y celos hacia el profesor. Declara que estuvo en la biblioteca entre las 9:15 pm y las 10:00 pm investigando para su tesis, y que vio a Lucía cerca de la estantería justo antes del ruido.', 
+   false,
+   'Javier parecía tener motivos, pero su presencia en la biblioteca está confirmada y su relato sobre Lucía es consistente con otras evidencias.'),
+  
+  (nuevo_id, 'Lucía Fernández', 
+   'Investigadora rival que competía con el Dr. Torres por una importante subvención. Afirma que llegó a la biblioteca a las 9:50 pm y se encontró con Javier, con quien tuvo una breve discusión que terminó en insultos. Dijo que se retiró rápidamente tras escuchar un ruido.', 
+   true,
+   'Lucía intentó desviar la atención hacia Javier, pero su relato sobre la discusión es inconsistente con los tiempos y no pudo explicar por qué la daga sangrienta fue encontrada en su área de trabajo. Además, no tiene coartada para el tiempo exacto del golpe mortal.'),
+  
+  (nuevo_id, 'Marcos Sánchez', 
+   'Conserje de la universidad con acceso a todas las instalaciones. Declaró que estuvo revisando la caldera en el sótano entre las 9:00 pm y las 10:30 pm y no tuvo contacto con nadie en la biblioteca.', 
+   false,
+   'Marcos tiene una coartada sólida, confirmada por registros de mantenimiento y testigos, y no presenta motivos claros para cometer el asesinato.');
+END $$;

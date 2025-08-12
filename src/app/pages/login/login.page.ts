@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalController, NavController, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonInput, IonRouterOutlet } from '@ionic/angular/standalone';
+import { ModalController, NavController, IonContent, IonButton, IonIcon, IonInput } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { attach, logoApple, logoGoogle, mail, mailOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,7 +12,7 @@ import { NombredeusuarioComponent } from 'src/app/components/nombredeusuario/nom
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [ IonRouterOutlet, IonInput, IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [ IonInput, IonIcon, IonButton, IonContent, CommonModule, FormsModule]
 })
 export class LoginPage implements OnInit {
 
@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   bMostrarEmail = false;
-  Usuario = { email: 'damraulmu99@gmail.com', password: '2julio1999' }
+  Usuario = { email: '', password: '' }
   async IniciarSesion() {
 
     const data = await this.auth.signIn( this.Usuario.email, this.Usuario.password );
@@ -49,6 +49,13 @@ export class LoginPage implements OnInit {
       // await this.auth.EstablecerNombreUsuario( 'raulmu99' );
     }
 
+  }
+
+  async Google() {
+     const data = await this.auth.Google();
+     await this.auth.ObtenerSesionActual();
+    this.ComprobarNombreUsuario();
+    await this.router.navigateRoot( 'tabs' );
   }
 
 }

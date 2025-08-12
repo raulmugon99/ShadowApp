@@ -8,7 +8,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
 
-  <ion-header>
+  <ion-header class="ion-no-border">
     <h1 style="text-align: center; color: white;">
       INICIO
     </h1>
@@ -23,13 +23,16 @@
     </ion-card-header>
 
     <ion-card-content>
-      <p style="color: lightgray;">{{ caso.Resumen }}</p>
-      <p style="margin-top: 8px;"><strong>Tiempo restante:</strong> {{ tiempoRestante }}</p>
-      <p style="margin-top: 8px;"><strong>Estado:</strong> Resuelto </p>
+      <p style="color: lightgray; margin-bottom: 0px;">{{ caso.Resumen }}</p>
+      <p style="margin-top: 16px;"><strong>Tiempo restante:</strong> {{ tiempoRestante }}</p>
+      <p style="margin-top: 8px;"><strong>Estado:</strong> {{ caso.Resolucion?.length > 0 ? 'Resuelto' : 'Pendiente' }} </p>
+
+    <ion-button style="margin-top: 12px; --background: #1e1e2f;" expand="block" (click)="IrAlCaso( caso.id )">Resolver</ion-button>
+
     </ion-card-content>
   </ion-card>
 
-  <ion-button expand="block" color="primary" (click)="IrAlCaso( caso.id )">Ver Caso Completo</ion-button>
+
 
   <ion-card style="margin: 16px 0 0 0;">
     <ion-card-header>
@@ -41,9 +44,8 @@
     </ion-card-content>
   </ion-card>
 
-
   <ion-card style="margin: 16px 0 0 0;">
-    <ion-card-header>
+    <ion-card-header style="padding-bottom: 0;">
       <ion-card-title style="color: white;">Ranking Semanal</ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -71,6 +73,11 @@
           </ion-label>
         </ion-item>
       </ion-list>
+
+    <ion-button expand="block" style="--background: #1e1e2f;" routerLink="/tabs/ranking">
+      Ver Ranking Completo
+    </ion-button>
+
     </ion-card-content>
   </ion-card>
   

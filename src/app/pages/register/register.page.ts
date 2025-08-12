@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NavController, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput } from '@ionic/angular/standalone';
+import { NavController, IonContent, IonButton, IonInput } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [ IonInput, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [ IonInput, IonButton, IonContent, CommonModule, FormsModule]
 })
 export class RegisterPage implements OnInit {
 
@@ -29,5 +29,10 @@ export class RegisterPage implements OnInit {
       await this.router.navigateRoot( 'login' );
     }
     console.log( data )
+  }
+
+
+  async Cancelar() {
+    await this.router.navigateRoot( 'login' );
   }
 }

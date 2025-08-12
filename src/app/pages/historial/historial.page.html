@@ -1,34 +1,35 @@
 <ion-content [fullscreen]="true">
  
-  <ion-header>
+  <ion-header class="ion-no-border" style="padding-top: 16px;">
     <h1 style="text-align: center; color: white;">
       HISTORIAL
     </h1>
   </ion-header>
 
-  <ion-list style="padding: 16px; --background: #1e1e2f; background: #1e1e2f;" lines="none">
+  <div *ngIf="bCargando" style="text-align: center;">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
 
-    <ion-item *ngFor="let hist of Historial" style="--background: #59597c; margin-bottom: 8px; border-radius: 12px;">
-      <ion-label>
-        <h3>
-{{ hist.titulo }}
-        </h3>
+  <ion-list style="padding: 16px; --background: transparent; background: transparent;" lines="none" *ngIf="!bCargando">
+
+    <ion-item *ngFor="let hist of Historial" style="--background: #2e2e3f; margin-bottom: 8px; border-radius: 12px;">
+      <ion-label color="light">
+        <h2>
+          {{ hist.titulo }}
+        </h2>
         <p>
-    <ion-icon *ngFor="let star of [].constructor( hist.dificultad )" name="star" color="warning"></ion-icon>
+          Dificultad: <ion-icon *ngFor="let star of [].constructor( hist.dificultad )" name="star" color="warning"></ion-icon>
         </p>
         <p>
-          {{ hist.puntuacion }}
+          Puntos: {{ hist.puntuacion }}
         </p>
         <p>
           {{ hist.resumen }}
         </p>
         <p>
-          {{ hist.fechadisponible }}
+          {{ hist.fechadisponible | date : 'dd/MM/yyyy' }}
         </p>
-      </ion-label>
-      
-<!-- dif: {{ hist.dificultad }} -->
-      
+      </ion-label>      
   
     </ion-item>
 

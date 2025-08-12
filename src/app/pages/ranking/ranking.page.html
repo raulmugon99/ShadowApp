@@ -1,5 +1,6 @@
 <ion-content [fullscreen]="true">
-  <ion-header>
+
+  <ion-header class="ion-no-border" style="padding-top: 16px;">
     <h1 style="text-align: center; color: white;">
       RANKING
     </h1>
@@ -15,9 +16,13 @@
     </ion-segment-button>
   </ion-segment>
 
-  <ion-list>
+  <div *ngIf="bCargando" style="text-align: center;">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
 
-    <ion-item style="--background: #27273f; color: white;">
+  <ion-list *ngIf="!bCargando" style="padding: 0;">
+
+    <ion-item style="--background: #1e1e2f; color: white;">
       <ion-label>
         #
       </ion-label>
@@ -29,7 +34,7 @@
       </ion-label>
     </ion-item>
 
-    <ion-item *ngFor="let rank of Ranking" style="--background: #1e1e2f; color: white;">
+    <ion-item *ngFor="let rank of Ranking" style="--background: #27273f; color: white;">
       <ion-label>
       {{ rank.puesto }}
       </ion-label>

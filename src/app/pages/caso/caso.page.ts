@@ -1,18 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalController, IonCheckbox, NavController, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonLabel, IonCardHeader, IonCard, IonCardTitle, IonList, IonItem, IonCardContent, IonIcon, IonButtons, IonSpinner, IonSkeletonText } from '@ionic/angular/standalone';
-import { ActivatedRoute } from '@angular/router';
+import { ModalController, IonCheckbox, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonLabel, IonCardHeader, IonCard, IonCardTitle, IonList, IonItem, IonCardContent, IonIcon, IonButtons, IonSpinner } from '@ionic/angular/standalone';
 import { CasosService } from 'src/app/services/casos.service';
 import { addIcons } from 'ionicons';
 import { close, checkbox } from 'ionicons/icons';
+import { AdsService } from 'src/app/services/ads.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-caso',
   templateUrl: './caso.page.html',
   styleUrls: ['./caso.page.scss'],
   standalone: true,
-  imports: [IonSkeletonText, IonSpinner, IonButtons, IonIcon, IonButton, IonCardContent, IonItem, IonList, IonCardTitle, IonCard, IonCardHeader, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCheckbox]
+  imports: [ IonSpinner, IonButtons, IonIcon, IonButton, IonCardContent, IonItem, IonList, IonCardTitle, IonCard, IonCardHeader, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCheckbox ]
 })
 export class CasoPage implements OnInit {
 
@@ -26,37 +27,42 @@ export class CasoPage implements OnInit {
   Asesino: any = null;
   AsesinoResuelto: any = null;
 
-  constructor(private route: ActivatedRoute, private _casos: CasosService, private router: NavController, private _modal: ModalController) {
+  constructor(private _casos: CasosService, private _modal: ModalController, private _ads: AdsService, private utils: UtilsService) {
     addIcons({close,checkbox});
-   }
+  }
 
   async ngOnInit() {
 
     const data = await this._casos.Get_Caso_byId( this.idCaso )
     this.caso = data;
-    // console.log( this.caso )
+
     if( this.caso.Resolucion.length > 0 ) {
       this.bCasoResuelto = true;
       this.Asesino = this.caso.Sospechoso.filter( ( ase: any ) => ase.Asesino == true )[0];
       this.AsesinoResuelto = this.caso.Sospechoso.filter( ( ase: any ) => this.caso.Resolucion[0].sospechoso_id )[0];
     }
 
-    console.log( data )
     this.bCargando = false;
   }
 
-  VerPista( index: number ) {
+  async VerPista( index: number ) {
+ 
+    await this._ads.showRewarded();
+
     if( index == 0 ) {
       this.bPista1Usada = true;
     } else if( index == 1 ) {
       this.bPista2Usada = true;
     }
-    alert( this.caso.Pista[index].Descripcion );
+
+    // alert( this.caso.Pista[index].Descripcion );
+    await this.utils.ShowAlert( this.caso.Pista[index].Descripcion , `Pista ${ index + 1}` );
+
   }
 
   async Resolver( ) {
     if( !this.SospechosoSeleccionado ) {
-      alert( 'No se ha seleccionado ningún sospechoso.' )
+      await this.utils.ShowAlert( 'No se ha seleccionado ningún sospechoso.' , 'Error' );
       return;
     }
     
@@ -68,15 +74,16 @@ export class CasoPage implements OnInit {
     }
     
     if( this.SospechosoSeleccionado.Asesino ) {
-      alert( 'Correcto. ' + this.SospechosoSeleccionado.Resolucion )
+      await this.utils.ShowAlert( this.SospechosoSeleccionado.Resolucion , 'Correcto' );
     } else {
-      alert( 'Incorrecto. ' + this.SospechosoSeleccionado.Resolucion )
+      await this.utils.ShowAlert( this.SospechosoSeleccionado.Resolucion , 'Incorrecto' );
     }
     
+    await this._ads.showInterstitial();
+
   }
 
   async Cerrar() {
-    // await this.router.navigateRoot('home')
     await this._modal.dismiss();
   }
 
@@ -86,7 +93,7 @@ export class CasoPage implements OnInit {
     if( ev.detail.checked ) {
       this.SospechosoSeleccionado = sos;
     }
-    // console.log( ev )
+
   }
 
 }

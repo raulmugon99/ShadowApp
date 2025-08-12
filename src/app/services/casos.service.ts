@@ -10,10 +10,14 @@ export class CasosService {
  constructor(private supabaseService: SupabaseService, private auth: AuthService) {}
 
   async getActiveCases() {
+    let sFechaHoy = this.ObtenerFechaHoy();
+    const usuarioId = this.auth.SesionActual?.user.id;
+
     const { data, error } = await this.supabaseService.supabase
       .from('Caso')
-      .select('*')
-      .eq( 'FechaDisponible' , '2025-08-20' )
+      .select('*, Resolucion(*)')
+      .eq( 'FechaDisponible' , sFechaHoy )
+      .eq( 'Resolucion.usuario_id' , usuarioId)
       .single()
 
     if (error) {
@@ -25,13 +29,13 @@ export class CasosService {
   }
 
   async Get_Caso_byId( idCaso: number ) {
-         const usuarioId = this.auth.SesionActual?.user.id;
+    const usuarioId = this.auth.SesionActual?.user.id;
 
     const { data, error } = await this.supabaseService.supabase
       .from('Caso')
       .select('*, Sospechoso(*), Pista(*), Resolucion(*)')
       .eq( 'id' , idCaso)
-       .eq( 'Resolucion.usuario_id' , usuarioId)
+      .eq( 'Resolucion.usuario_id' , usuarioId)
       .single();
 
     if (error) {
@@ -92,14 +96,8 @@ export class CasosService {
 
   async EsCasoDiaHoy(idCaso: number): Promise< boolean > {
     return new Promise( async ( resolve ) => {
-      const dFechaHoy = new Date();
-      let sAñoHoy = dFechaHoy.getFullYear();
-      let sMesHoy = ( dFechaHoy.getMonth() + 1 ).toString().padStart( 2 , '0' );
-      let sDiaHoy = dFechaHoy.getDate().toString().padStart( 2 , '0' );
 
-      let sFechaHoy = `${sAñoHoy}-${sMesHoy}-${sDiaHoy}`
-
-      // console.log( idCaso, sFechaHoy )
+      let sFechaHoy = this.ObtenerFechaHoy();
 
       const { data, error } = await this.supabaseService.supabase
         .from('Caso')
@@ -203,6 +201,18 @@ export class CasosService {
         resolve( data as any[] );
       }
     })
+  }
+
+  ObtenerFechaHoy(): string {
+     const dFechaHoy = new Date();
+
+        let sAñoHoy = dFechaHoy.getFullYear();
+      let sMesHoy = ( dFechaHoy.getMonth() + 1 ).toString().padStart( 2 , '0' );
+      let sDiaHoy = dFechaHoy.getDate().toString().padStart( 2 , '0' );
+
+      let sFechaHoy = `${sAñoHoy}-${sMesHoy}-${sDiaHoy}`
+
+      return sFechaHoy
   }
 }
 

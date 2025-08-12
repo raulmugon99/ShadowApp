@@ -1,19 +1,41 @@
 <ion-content [fullscreen]="true">
-   <ion-header>
+
+   <ion-header class="ion-no-border" style="padding-top: 16px;">
     <h1 style="text-align: center; color: white;">
       PERFIL
     </h1>
   </ion-header>
 
+  <div style="margin: 32px 0;">
 
-  <ion-list [inset]="true" lines="none">
-    <ion-item style="--background: #68688b;" detail button>
+    <div style="height: 80px; width: 80px; background-color: white; margin: auto; border-radius: 50px;">
+
+      <img src="https://cdn-icons-png.flaticon.com/512/1320/1320570.png" alt="" style="width: 100%; height: 100%; border-radius: 50px;">
+
+    </div>
+
+    <div style="text-align: center; margin-top: 16px;">
+      <h2>
+        {{ auth.UsuarioActual.NombreDeUsuario }}
+      </h2>
+      <p style="margin: 0; color: lightgray; font-size: 12px;">
+        {{ auth.SesionActual?.user?.email }}
+    </p>
+    </div>
+
+    
+
+  </div>
+
+
+  <ion-list [inset]="true" lines="none" style="padding: 0;">
+    <ion-item style="--background: #2e2e3f; --color: white" detail button >
       <ion-label>Notificaciones</ion-label>
     </ion-item>
-    <ion-item style="--background: #68688b;" detail button>
+    <ion-item style="--background: #2e2e3f; --color: white" detail button>
       <ion-label>Soporte / Contacto</ion-label>
     </ion-item>
-    <ion-item (click)="CerrarSesion()" style="--background: #68688b;" detail button>
+    <ion-item (click)="CerrarSesion()" style="--background: #2e2e3f; --color: white" detail button>
       Cerrar Sesión
     </ion-item>
   </ion-list>

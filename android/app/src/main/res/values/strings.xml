@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Shadow</string>
+    <string name="title_activity_main">Shadow</string>
+    <string name="package_name">mk13.shadow.app</string>
+    <string name="custom_url_scheme">mk13.shadow.app</string>
+    <string name="admob_app_id">ca-app-pub-9858035614599073~6128463412</string>
+</resources>

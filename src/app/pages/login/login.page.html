@@ -17,7 +17,7 @@
     </p>
 
     <div *ngIf="!bMostrarEmail">
-      <ion-button expand="block" class="bk1" disabled="true">
+      <ion-button expand="block" class="bk1" (click)="Google()">
         <ion-icon name="logo-google" slot="start"></ion-icon>
         Google
       </ion-button>

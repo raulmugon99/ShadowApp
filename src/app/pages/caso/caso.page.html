@@ -30,7 +30,7 @@
       <ion-card-header>
         <ion-card-title color="light">Sospechosos</ion-card-title>
       </ion-card-header>
-      <ion-list>
+      <ion-list style="padding: 0;">
         <ion-item *ngFor="let sospechoso of caso.Sospechoso" >
 
           <ion-checkbox *ngIf="!bCasoResuelto" slot="start" (ionChange)="SospechosoSelEvent( $event, sospechoso )" [checked]="SospechosoSeleccionado == sospechoso"></ion-checkbox>
@@ -41,7 +41,7 @@
             <h3>
               {{ sospechoso.Nombre }}
             </h3>
-            <p>
+            <p style="color: lightgray;">
               "{{ sospechoso.Descripcion }}"
             </p>
           </ion-label>
@@ -73,7 +73,7 @@
       <ion-card-header>
         <ion-card-title color="light">Resolución</ion-card-title>
       </ion-card-header>
-      <ion-list>
+      <ion-list style="padding: 0;">
         <ion-item>
            <ion-label>
             <h3>

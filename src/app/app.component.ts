@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet, NavController } from '@ionic/angular/standalone';
 import { SupabaseService } from './services/supabase.service';
 import { AuthService } from './services/auth.service';
+import { AdMob, AdMobBannerSize, BannerAdOptions, BannerAdPosition, AdOptions } from '@capacitor-community/admob';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   constructor(private auth: AuthService, private navCtrl: NavController ) {
     this.checkUserSession();
+    // this.initAds();
   }
 
   async checkUserSession() {
@@ -23,4 +25,12 @@ export class AppComponent {
     }
 
   }
+
+  //  async initAds() {
+  //   await AdMob.initialize({
+  //     testingDevices: ['TEST_DEVICE_ID'], // Opcional
+  //     initializeForTesting: true, // true para usar anuncios de prueba
+  //   });
+
+  // }
 }

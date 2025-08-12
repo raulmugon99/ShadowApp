@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SupabaseService } from './supabase.service';
 import { Session } from '@supabase/supabase-js';
+import { GoogleLoginResponse, SocialLogin } from '@capgo/capacitor-social-login';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,14 @@ import { Session } from '@supabase/supabase-js';
 export class AuthService {
 
   SesionActual: Session | null = null;
+  UsuarioActual: any;
   constructor( private supabaseService: SupabaseService ) {
     this.ObtenerSesionActual();
+
+    SocialLogin.initialize({
+      google: { webClientId: '1054095659719-6mtmmtar8mp5o8qg4s8cc632pbo3ckt3.apps.googleusercontent.com' }
+    })
+
   }
 
   // Método para login con email y contraseña
@@ -18,6 +25,37 @@ export class AuthService {
       email,
       password
     });
+  }
+
+  async Google() {
+
+    try {
+
+      // Paso 1: Login con Google en el dispositivo
+      const res = await SocialLogin.login({
+        provider: 'google',
+        options: {}
+      });
+
+      if( res.result && res.result.responseType == 'online' ) {
+
+        if (!res?.result?.idToken) {
+            throw new Error('No se obtuvo idToken de Google');
+          }
+
+        // Paso 2: Pasar token a Supabase
+        return await this.supabaseService.supabase.auth.signInWithIdToken({
+          provider: 'google',
+          token: res.result.idToken
+        });
+
+      }
+      
+    } catch (err) {
+      console.error('Error en login:', err);
+    }
+
+    return null
   }
 
   // Método para registro con email y contraseña (opcional)
@@ -30,12 +68,22 @@ export class AuthService {
 
   // Método para logout
   async signOut() {
+    this.SesionActual = null;
+    this.UsuarioActual = null;
     return await this.supabaseService.supabase.auth.signOut();
   }
 
   async ObtenerSesionActual() {
     const { data } = await this.supabaseService.supabase.auth.getSession();
     this.SesionActual = data.session;
+
+    const usuario_id = this.SesionActual?.user.id;
+    const data2 = await this.supabaseService.supabase.from('Usuario')
+      .select()
+      .eq( 'usuario_id' , usuario_id )
+      .single()
+
+      this.UsuarioActual = data2.data;
     // console.log( this.SesionActual )
   }
 

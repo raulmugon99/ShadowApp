@@ -13,7 +13,7 @@
     </h1>
 
     <p style="text-align: center; color: lightgray;">
-      Tu caso del día te espera.
+      El caso del día te espera.
     </p>
 
     <div *ngIf="!bMostrarEmail">
@@ -21,23 +21,27 @@
         <ion-icon name="logo-google" slot="start"></ion-icon>
         Google
       </ion-button>
-      <ion-button expand="block" class="bk1" disabled="true">
+      <ion-button expand="block" class="bk1" disabled="true" style="margin-top: 16px;">
         <ion-icon name="logo-apple" slot="start"></ion-icon>
         Apple
       </ion-button>
-      <ion-button expand="block" class="bk1" (click)="bMostrarEmail = true">
+      <ion-button expand="block" class="bk1" (click)="bMostrarEmail = true" style="margin-top: 16px;">
         <ion-icon name="mail-outline" slot="start"></ion-icon>
         Email
       </ion-button>
     </div>
 
     <div *ngIf="bMostrarEmail">
+
       <ion-input type="text" [(ngModel)]="Usuario.email" mode="md" label="Correo Electrónico" label-placement="floating" fill="outline" placeholder="Introduce tu correo electrónico..."></ion-input>
+      
       <ion-input style="margin-top: 8px;" type="password" [(ngModel)]="Usuario.password" mode="md" label="Contraseña" label-placement="floating" fill="outline" placeholder="Introduce tu contraseña..."></ion-input>
-      <ion-button (click)="IniciarSesion()" expand="block">
+      
+      <ion-button (click)="IniciarSesion()" expand="block" class="bk1" style="margin-top: 16px;">
         Iniciar Sesión
       </ion-button>
-       <ion-button (click)="bMostrarEmail = false" expand="block" color="danger">
+
+       <ion-button (click)="bMostrarEmail = false" expand="block" color="danger" style="margin-top: 16px;">
         Cancelar
       </ion-button>
 
@@ -45,7 +49,7 @@
           <p>
             ¿No tienes cuenta?
           </p>
-          <a (click)="IrAlRegistro()">Registrarse</a>
+          <a (click)="IrAlRegistro()" class="col3" style="font-size: 18px;">Registrarse</a>
     </div>
 
     </div>

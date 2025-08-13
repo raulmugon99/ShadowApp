@@ -1,9 +1,11 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
 
-   <ion-header class="ion-no-border" style="padding-top: 16px;">
-    <h1 style="text-align: center; color: white;">
-      PERFIL
-    </h1>
+   <ion-header class="ion-no-border">
+    <ion-toolbar style="--background: transparent;">
+      <ion-title color="light" style="font-size: 24px;">
+        PERFIL
+      </ion-title>
+    </ion-toolbar>
   </ion-header>
 
   <div style="margin: 32px 0;">
@@ -28,7 +30,7 @@
   </div>
 
 
-  <ion-list [inset]="true" lines="none" style="padding: 0;">
+  <ion-list [inset]="true" lines="none" style="padding: 0; margin: 0;">
     <ion-item style="--background: #2e2e3f; --color: white" detail button >
       <ion-label>Notificaciones</ion-label>
     </ion-item>

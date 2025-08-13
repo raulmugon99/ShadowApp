@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { ModalController, IonHeader, IonToolbar, IonContent, IonInput, IonButton } from "@ionic/angular/standalone";
+import { ModalController, IonHeader, IonToolbar, IonContent, IonInput, IonButton, IonNote } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -10,7 +10,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   templateUrl: './nombredeusuario.component.html',
   styleUrls: ['./nombredeusuario.component.scss'],
   standalone: true,
-  imports: [IonButton, IonInput, IonContent, IonToolbar, IonHeader, CommonModule, FormsModule ]
+  imports: [IonNote, IonButton, IonInput, IonContent, IonToolbar, IonHeader, CommonModule, FormsModule ]
 })
 export class NombredeusuarioComponent  implements OnInit {
 

@@ -1,12 +1,14 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
 
-  <ion-header class="ion-no-border" style="padding-top: 16px;">
-    <h1 style="text-align: center; color: white;">
-      RANKING
-    </h1>
+  <ion-header class="ion-no-border">
+    <ion-toolbar style="--background: transparent;">
+      <ion-title color="light" style="font-size: 24px;">
+        RANKING
+      </ion-title>
+    </ion-toolbar>
   </ion-header>
 
-  <ion-segment mode="md" value="semanal" (ionChange)="CambioTipoRanking( $event )">
+  <ion-segment mode="md" value="semanal" (ionChange)="CambioTipoRanking( $event )" style="margin-top: 16px;">
     <ion-segment-button value="semanal">
       Semanal
     </ion-segment-button>

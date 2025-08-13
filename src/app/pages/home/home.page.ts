@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ModalController, IonHeader, IonContent, IonCard, IonButton, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonItem, IonList, IonLabel } from '@ionic/angular/standalone';
+import { ModalController, IonHeader, IonContent, IonCard, IonButton, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonItem, IonList, IonLabel, IonToolbar, IonTitle } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { star } from 'ionicons/icons';
 import { CasosService } from '../../services/casos.service';
@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [ RouterLink, IonLabel, IonList, IonItem, IonIcon, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonButton, IonCard, IonHeader, IonContent, CommonModule ],
+  imports: [IonTitle, IonToolbar,  RouterLink, IonLabel, IonList, IonItem, IonIcon, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonButton, IonCard, IonHeader, IonContent, CommonModule ],
 })
 export class HomePage {
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonSegmentButton, IonSegment, IonList, IonLabel, IonItem, IonSpinner } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonSegmentButton, IonSegment, IonList, IonLabel, IonItem, IonSpinner, IonToolbar, IonTitle } from '@ionic/angular/standalone';
 import { CasosService } from 'src/app/services/casos.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { CasosService } from 'src/app/services/casos.service';
   templateUrl: './ranking.page.html',
   styleUrls: ['./ranking.page.scss'],
   standalone: true,
-  imports: [IonSpinner, IonItem, IonLabel, IonList, IonSegment, IonContent, IonHeader, CommonModule, FormsModule, IonSegment, IonSegmentButton]
+  imports: [IonTitle, IonToolbar, IonSpinner, IonItem, IonLabel, IonList, IonSegment, IonContent, IonHeader, CommonModule, FormsModule, IonSegment, IonSegmentButton]
 })
 export class RankingPage {
 

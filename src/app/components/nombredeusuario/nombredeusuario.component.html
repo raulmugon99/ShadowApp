@@ -1,19 +1,22 @@
-<ion-header>
-  <ion-toolbar>
+<ion-content class="ion-padding">
+
+  <ion-header style="background-color: transparent; --background: transparent;">
+  <ion-toolbar style="background-color: transparent; --background: transparent;">
 
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
   <p>
     Establecer nombre de usuario
   </p>
 
-  <ion-input [(ngModel)]="NombreDeUsuario">
+  <ion-input style="margin-bottom: 8px;" [(ngModel)]="NombreDeUsuario" mode="md" label="Nombre De Usuario" label-placement="floating" fill="outline" placeholder="Introduce tu nombre de usuario..."></ion-input>
 
-  </ion-input>
+  <ion-note>
+    * Este será el nombre que se mostrará a los demás usuarios en los rankings.
+  </ion-note>
 
-  <ion-button (click)="EstablecerNombre()">
+  <ion-button (click)="EstablecerNombre()" expand="block" class="bk1" style="margin-top: 16px;">
     Guardar
   </ion-button>
 

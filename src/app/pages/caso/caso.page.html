@@ -22,7 +22,7 @@
         <ion-card-title color="light">Descripción del Crimen</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p>{{ caso.Descripcion }}</p>
+        <p style="text-align: justify;">{{ caso.Descripcion }}</p>
       </ion-card-content>
     </ion-card>
 
@@ -38,11 +38,11 @@
           <ion-icon name="checkbox" slot="start" color="success" *ngIf="caso.Resolucion[0]?.sospechoso_id == sospechoso.id"></ion-icon>
          
           <ion-label>
-            <h3>
-              {{ sospechoso.Nombre }}
-            </h3>
-            <p style="color: lightgray;">
-              "{{ sospechoso.Descripcion }}"
+            <h2>
+              <b>{{ sospechoso.Nombre }}</b> 
+            </h2>
+            <p style="color: lightgray; text-align: justify;">
+              {{ sospechoso.Descripcion }}
             </p>
           </ion-label>
         </ion-item>

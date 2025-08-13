@@ -27,7 +27,9 @@ export class LoginPage implements OnInit {
   Usuario = { email: '', password: '' }
   async IniciarSesion() {
 
+    await this.utils.ShowLoading( 'Iniciando sesión...' );
     const { data, error } = await this.auth.signIn( this.Usuario.email, this.Usuario.password );
+    await this.utils.HideLoading();
     if( error ) {
       await this.utils.ShowToast( error.message, 'danger' )
       return;

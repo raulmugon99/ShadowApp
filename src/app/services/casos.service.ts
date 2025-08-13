@@ -46,6 +46,20 @@ export class CasosService {
     return data;
   }
 
+  GuardarError( idCaso: number, sDescripcion: string ): Promise< boolean > {
+    return new Promise( async ( resolve ) => {
+
+      const usuarioId = this.auth.SesionActual?.user.id;
+
+      const data = await this.supabaseService.supabase
+        .from( 'Error' )
+        .insert( { usuario_id: usuarioId, caso_id: idCaso, Descripcion: sDescripcion })
+
+        resolve( true )
+
+    })
+  }
+
   GuardarResolucion( idCaso: number, sospechoso_id: number, Correcto: boolean, bPista1: boolean, bPista2: boolean ): Promise< ResolucionResponse > {
     return new Promise( async ( resolve ) => {
 

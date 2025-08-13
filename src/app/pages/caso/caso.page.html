@@ -6,6 +6,14 @@
       </ion-button>
     </ion-buttons>
     <ion-title color="light">{{ caso.Titulo }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="click-trigger">
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="NotificarUnProblema()">
+        <ion-icon name="warning-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -62,11 +70,10 @@
       Ver La Pista 1 ( Anuncio )
     </ion-button>
 
-    <ion-button (click)="VerPista( 1 )" expand="block" style="--background: #252538;">
+    <ion-button (click)="VerPista( 1 )" expand="block" style="--background: #252538;" [disabled]="!bPista1Usada">
       Ver La Pista 2 ( Anuncio )
     </ion-button>
   </div>
-
 
   <div *ngIf="bCasoResuelto">
      <ion-card>
@@ -103,3 +110,33 @@
   </div>
 
 </ion-content>
+
+<ion-popover trigger="click-trigger" triggerAction="click" style="--width: 90%">
+  <ng-template>
+    <div class="ion-padding">
+
+      <h1 style="margin: 0; font-weight: bold;">
+        Puntuación.
+      </h1>
+
+      <p>
+        <ion-icon name="time-outline"></ion-icon> Por cada hora que pase desde las 12 de la noche hasta que resuelvas el caso, se restará <b>1 punto</b>.
+      </p>
+      <p>
+        <ion-icon name="trophy-outline"></ion-icon> Si resuelves el caso correctamente, sumarás <b>100 puntos</b>.
+      </p>
+      <p>
+        <ion-icon name="skull-outline"></ion-icon> Si te equivocas de asesino, sumarás solo <b>50 puntos</b>.
+      </p>
+
+      <p>
+        <ion-icon name="bulb-outline"></ion-icon> Si utilizas la primera pista, restarás <b>20 puntos</b>.
+      </p>
+
+      <p>
+        <ion-icon name="bulb-outline"></ion-icon> Si utilizas la segunda pista, restarás <b>30 puntos</b>.
+      </p>
+
+    </div>
+  </ng-template>
+</ion-popover>

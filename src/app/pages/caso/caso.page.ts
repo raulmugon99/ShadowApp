@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalController, IonCheckbox, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonLabel, IonCardHeader, IonCard, IonCardTitle, IonList, IonItem, IonCardContent, IonIcon, IonButtons, IonSpinner } from '@ionic/angular/standalone';
+import { AlertController, ModalController, IonCheckbox, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonLabel, IonCardHeader, IonCard, IonCardTitle, IonList, IonItem, IonCardContent, IonIcon, IonButtons, IonSpinner, IonPopover, IonAlert, IonTextarea } from '@ionic/angular/standalone';
 import { CasosService } from 'src/app/services/casos.service';
 import { addIcons } from 'ionicons';
-import { close, checkbox } from 'ionicons/icons';
+import { close, checkbox, informationCircleOutline, warningOutline, timeOutline, trophyOutline, skullOutline, bulbOutline } from 'ionicons/icons';
 import { AdsService } from 'src/app/services/ads.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -13,7 +13,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   templateUrl: './caso.page.html',
   styleUrls: ['./caso.page.scss'],
   standalone: true,
-  imports: [ IonSpinner, IonButtons, IonIcon, IonButton, IonCardContent, IonItem, IonList, IonCardTitle, IonCard, IonCardHeader, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCheckbox ]
+  imports: [ IonAlert, IonPopover,  IonSpinner, IonButtons, IonIcon, IonButton, IonCardContent, IonItem, IonList, IonCardTitle, IonCard, IonCardHeader, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCheckbox, IonTextarea ]
 })
 export class CasoPage implements OnInit {
 
@@ -27,8 +27,10 @@ export class CasoPage implements OnInit {
   Asesino: any = null;
   AsesinoResuelto: any = null;
 
-  constructor(private _casos: CasosService, private _modal: ModalController, private _ads: AdsService, private utils: UtilsService) {
-    addIcons({close,checkbox});
+  isPopoverOpen = false;
+  
+  constructor(private _casos: CasosService, private _modal: ModalController, private _ads: AdsService, private utils: UtilsService, private _alert: AlertController) {
+    addIcons({close,informationCircleOutline,warningOutline,checkbox,timeOutline,trophyOutline,skullOutline,bulbOutline});
   }
 
   async ngOnInit() {
@@ -102,4 +104,28 @@ export class CasoPage implements OnInit {
 
   }
 
+  NotificarProblema( ev: any ) {
+
+    if( ev && ev.detail && ev.detail.value ) {
+    console.log( ev )
+    }
+  }
+
+
+  async NotificarUnProblema() {
+    const alert = await this._alert.create({
+      header: 'Notificar Problema',
+      buttons: ['Cancelar', 'Notificar'],
+      inputs: [ { name: 'problema', type: 'textarea', placeholder: 'Introduce el problema...', attributes: { rows: 5 } } ]
+    });
+  
+    await alert.present();
+
+    await alert.onDidDismiss().then( async ( data ) => {
+     
+      if( data.data.values?.problema ) {
+        await this._casos.GuardarError( this.idCaso , data.data.values?.problema );
+      }
+    } )
+  }
 }

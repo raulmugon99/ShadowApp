@@ -10,24 +10,26 @@ export class AuthService {
 
   SesionActual: Session | null = null;
   UsuarioActual: any;
+
   constructor( private supabaseService: SupabaseService ) {
     this.ObtenerSesionActual();
 
     SocialLogin.initialize({
-      google: { webClientId: '1054095659719-6mtmmtar8mp5o8qg4s8cc632pbo3ckt3.apps.googleusercontent.com' }
+      google: { webClientId: '1054095659719-6mtmmtar8mp5o8qg4s8cc632pbo3ckt3.apps.googleusercontent.com' },
+      apple: { clientId: 'your-client-id' }
     })
 
   }
 
   // Método para login con email y contraseña
-  async signIn(email: string, password: string) {
+  async IniciarSesion_Email(email: string, password: string) {
     return await this.supabaseService.supabase.auth.signInWithPassword({
       email,
       password
     });
   }
 
-  async Google() {
+  async IniciarSesion_Google() {
 
     try {
 
@@ -51,6 +53,35 @@ export class AuthService {
 
       }
       
+    } catch (err) {
+      console.error('Error en login:', err);
+    }
+
+    return null
+  }
+
+  async IniciarSesion_Apple() {
+    try {
+      
+      const res = await SocialLogin.login({
+        provider: 'apple',
+        options: { scopes: ['email', 'name'] }
+      });
+
+      if( res.result ) {
+
+         if (!res?.result?.idToken) {
+            throw new Error('No se obtuvo idToken de Google');
+          }
+
+        // Paso 2: Pasar token a Supabase
+        return await this.supabaseService.supabase.auth.signInWithIdToken({
+          provider: 'apple',
+          token: res.result.idToken
+        });
+
+      }
+
     } catch (err) {
       console.error('Error en login:', err);
     }

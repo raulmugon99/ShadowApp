@@ -73,6 +73,33 @@ export class CasoPage implements OnInit {
       return;
     }
     
+    let sDescPuntuacion = ''
+    let Puntuacion = 120;
+
+    if( !this.SospechosoSeleccionado.Asesino ) {
+      Puntuacion = 80;
+      sDescPuntuacion += "Caso Sin Resolver: 80 puntos\n";
+    } else {
+      sDescPuntuacion += "Caso Resuelto: 120 puntos\n";
+    }
+
+    let hou = new Date().getHours();
+
+    Puntuacion = Puntuacion - hou;
+    sDescPuntuacion += `Tiempo: -${hou} puntos\n`;
+
+    if( this.bPista1Usada ) {
+      Puntuacion = Puntuacion - 20; 
+      sDescPuntuacion += "Pista 1 Usada: -20 puntos\n";
+    }
+
+    if( this.bPista2Usada ) {
+      Puntuacion = Puntuacion - 30; 
+      sDescPuntuacion += "Pista 2 Usada: -30 puntos\n";
+    }
+
+    sDescPuntuacion += `\nTOTAL: ${Puntuacion} PUNTOS\n\n`;
+
     const data = await this._casos.GuardarResolucion( this.idCaso, this.SospechosoSeleccionado.id, this.SospechosoSeleccionado.Asesino, this.bPista1Usada, this.bPista2Usada );
 
     if( !data.Correcto ) {
@@ -81,9 +108,9 @@ export class CasoPage implements OnInit {
     }
     
     if( this.SospechosoSeleccionado.Asesino ) {
-      await this.utils.ShowAlert( this.SospechosoSeleccionado.Resolucion , 'Correcto' );
+      await this.utils.ShowAlert( sDescPuntuacion + this.SospechosoSeleccionado.Resolucion , 'Correcto' );
     } else {
-      await this.utils.ShowAlert( this.SospechosoSeleccionado.Resolucion , 'Incorrecto' );
+      await this.utils.ShowAlert( sDescPuntuacion + this.SospechosoSeleccionado.Resolucion , 'Incorrecto' );
     }
     
     await this._ads.showInterstitial();
@@ -111,7 +138,6 @@ export class CasoPage implements OnInit {
     }
   }
 
-
   async NotificarUnProblema() {
     const alert = await this._alert.create({
       header: 'Notificar Problema',
@@ -128,4 +154,5 @@ export class CasoPage implements OnInit {
       }
     } )
   }
+  
 }

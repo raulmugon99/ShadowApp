@@ -71,10 +71,10 @@ export class CasosService {
         .eq( 'caso_id' , idCaso )
         .eq( 'usuario_id' , usuarioId )
 
-      let Puntuacion = 100;
+      let Puntuacion = 120;
 
       if( !Correcto ) {
-        Puntuacion = 50;
+        Puntuacion = 80;
       }
 
       let hou = new Date().getHours();
@@ -175,7 +175,6 @@ export class CasosService {
         console.error(error);
         resolve( [] );
       } else {
-        // console.log(data);
 
         resolve( data as any[] );
       }
@@ -192,7 +191,6 @@ export class CasosService {
         console.error(error);
         resolve( [] );
       } else {
-        // console.log(data);
 
         resolve( data as any[] );
       }
@@ -200,9 +198,9 @@ export class CasosService {
   }
 
   ObtenerHistorial(): Promise< any[] >  {
-          const usuarioId = this.auth.SesionActual?.user.id;
-          return new Promise( async ( resolve ) => {
+    return new Promise( async ( resolve ) => {
 
+      const usuarioId = this.auth.SesionActual?.user.id;
       const { data, error } = await this.supabaseService.supabase
         .rpc('historial_usuario', { usuario: usuarioId } )
         .order( 'fechadisponible' , { ascending : true})
@@ -219,16 +217,17 @@ export class CasosService {
   }
 
   ObtenerFechaHoy(): string {
-     const dFechaHoy = new Date();
+    const dFechaHoy = new Date();
 
-        let sAñoHoy = dFechaHoy.getFullYear();
-      let sMesHoy = ( dFechaHoy.getMonth() + 1 ).toString().padStart( 2 , '0' );
-      let sDiaHoy = dFechaHoy.getDate().toString().padStart( 2 , '0' );
+    let sAñoHoy = dFechaHoy.getFullYear();
+    let sMesHoy = ( dFechaHoy.getMonth() + 1 ).toString().padStart( 2 , '0' );
+    let sDiaHoy = dFechaHoy.getDate().toString().padStart( 2 , '0' );
 
-      let sFechaHoy = `${sAñoHoy}-${sMesHoy}-${sDiaHoy}`
+    let sFechaHoy = `${sAñoHoy}-${sMesHoy}-${sDiaHoy}`
 
-      return sFechaHoy
+    return sFechaHoy
   }
+  
 }
 
 export interface ResolucionResponse {

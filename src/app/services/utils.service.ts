@@ -22,13 +22,14 @@ export class UtilsService {
   }
   
   async ShowAlert( message: string, header: string ) {
-      const alert = await this._alert.create({
-        header,
-        message,
-        buttons: ['OK']
-      });
-    
-      await alert.present();
+    const alert = await this._alert.create({
+      header,
+      message,
+      buttons: ['Aceptar'],
+      cssClass: 'alert-preline'
+    });
+  
+    await alert.present();
   }
 
   async ShowToast( message: string, color: 'danger' | 'success' ,iDuration: number = 2500 ) {

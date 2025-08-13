@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalController, IonContent, IonHeader, IonList, IonItem, IonIcon, IonLabel, IonSpinner, IonToolbar, IonTitle, IonNote, IonText } from '@ionic/angular/standalone';
+import { ModalController, IonContent, IonHeader, IonList, IonItem, IonIcon, IonLabel, IonSpinner, IonToolbar, IonTitle, IonText } from '@ionic/angular/standalone';
 import { CasosService } from 'src/app/services/casos.service';
 import { addIcons } from 'ionicons';
 import { star } from 'ionicons/icons';
@@ -12,7 +12,7 @@ import { CasoPage } from '../caso/caso.page';
   templateUrl: './historial.page.html',
   styleUrls: ['./historial.page.scss'],
   standalone: true,
-  imports: [IonText, IonNote, IonTitle, IonToolbar, IonSpinner, IonLabel, IonIcon, IonItem, IonList, IonContent, IonHeader, CommonModule, FormsModule]
+  imports: [ IonText, IonTitle, IonToolbar, IonSpinner, IonLabel, IonIcon, IonItem, IonList, IonContent, IonHeader, CommonModule, FormsModule ]
 })
 export class HistorialPage {
 

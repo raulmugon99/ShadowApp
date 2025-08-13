@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AlertController, ModalController, IonCheckbox, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonLabel, IonCardHeader, IonCard, IonCardTitle, IonList, IonItem, IonCardContent, IonIcon, IonButtons, IonSpinner, IonPopover, IonAlert, IonTextarea } from '@ionic/angular/standalone';
+import { AlertController, ModalController, IonCheckbox, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonLabel, IonCardHeader, IonCard, IonCardTitle, IonList, IonItem, IonCardContent, IonIcon, IonButtons, IonSpinner, IonPopover } from '@ionic/angular/standalone';
 import { CasosService } from 'src/app/services/casos.service';
 import { addIcons } from 'ionicons';
 import { close, checkbox, informationCircleOutline, warningOutline, timeOutline, trophyOutline, skullOutline, bulbOutline } from 'ionicons/icons';
@@ -13,7 +13,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   templateUrl: './caso.page.html',
   styleUrls: ['./caso.page.scss'],
   standalone: true,
-  imports: [ IonAlert, IonPopover,  IonSpinner, IonButtons, IonIcon, IonButton, IonCardContent, IonItem, IonList, IonCardTitle, IonCard, IonCardHeader, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCheckbox, IonTextarea ]
+  imports: [ IonPopover,  IonSpinner, IonButtons, IonIcon, IonButton, IonCardContent, IonItem, IonList, IonCardTitle, IonCard, IonCardHeader, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCheckbox ]
 })
 export class CasoPage implements OnInit {
 
@@ -63,7 +63,7 @@ export class CasoPage implements OnInit {
     }
 
     // alert( this.caso.Pista[index].Descripcion );
-    await this.utils.ShowAlert( this.caso.Pista[index].Descripcion , `Pista ${ index + 1}` );
+    await this.utils.ShowAlert( this.caso.Pista[index].Descripcion , `Pista ${ index + 1}: ${this.caso.Pista[index].Titulo}` );
 
   }
 

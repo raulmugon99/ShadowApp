@@ -2,16 +2,16 @@
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-button (click)="Cerrar()">
-        <ion-icon name="close"></ion-icon>
+        <ion-icon name="close" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title color="light">{{ caso.Titulo }}</ion-title>
     <ion-buttons slot="end">
       <ion-button id="click-trigger">
-        <ion-icon name="information-circle-outline"></ion-icon>
+        <ion-icon name="information-circle-outline" slot="icon-only"></ion-icon>
       </ion-button>
       <ion-button (click)="NotificarUnProblema()">
-        <ion-icon name="warning-outline"></ion-icon>
+        <ion-icon name="warning-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -39,9 +39,9 @@
         <ion-card-title color="light">Sospechosos</ion-card-title>
       </ion-card-header>
       <ion-list style="padding: 0;">
-        <ion-item *ngFor="let sospechoso of caso.Sospechoso" >
+        <ion-item *ngFor="let sospechoso of caso.Sospechoso" (click)="SospechosoSeleccionado = sospechoso">
 
-          <ion-checkbox *ngIf="!bCasoResuelto" slot="start" (ionChange)="SospechosoSelEvent( $event, sospechoso )" [checked]="SospechosoSeleccionado == sospechoso"></ion-checkbox>
+          <ion-checkbox #checkk *ngIf="!bCasoResuelto" slot="start" (ionChange)="SospechosoSelEvent( $event, sospechoso )" [checked]="SospechosoSeleccionado == sospechoso"></ion-checkbox>
          
           <ion-icon name="checkbox" slot="start" color="success" *ngIf="caso.Resolucion[0]?.sospechoso_id == sospechoso.id"></ion-icon>
          
@@ -59,13 +59,13 @@
 
   </div>
 
-  <div class="ion-padding" *ngIf="!bCasoResuelto">
+  <div class="ion-padding" *ngIf="!bCasoResuelto && !bCargando">
     <ion-button (click)="Resolver()" expand="block" style="--background: #252538;">
       Resolver
     </ion-button>
   </div>
 
-  <div class="ion-padding" *ngIf="!bCasoResuelto">
+  <div class="ion-padding" *ngIf="!bCasoResuelto && !bCargando">
     <ion-button (click)="VerPista( 0 )" expand="block" style="--background: #252538;">
       Ver La Pista 1 ( Anuncio )
     </ion-button>
@@ -111,7 +111,7 @@
 
 </ion-content>
 
-<ion-popover trigger="click-trigger" triggerAction="click" style="--width: 90%">
+<ion-popover trigger="click-trigger" triggerAction="click" style="--min-width: 90%">
   <ng-template>
     <div class="ion-padding">
 

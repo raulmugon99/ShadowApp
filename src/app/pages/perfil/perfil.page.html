@@ -27,7 +27,7 @@
 
   </div>
 
-  <div style="display: flex; justify-content: center;">
+  <!-- <div style="display: flex; justify-content: center;">
 
     <div style="padding: 8px;">
       <div style="font-weight: bold; font-size: 16px;">Casos Completados</div>
@@ -39,7 +39,7 @@
       <div style="text-align: center;">0</div>
     </div>
 
-  </div>
+  </div> -->
 
   <ion-list [inset]="true" lines="none" style="padding: 0; margin: 32px 0;">
     <ion-item style="--background: #2e2e3f; --color: white" detail button (click)="EnviarCorreoSoporte()">
@@ -48,16 +48,33 @@
     <ion-item style="--background: #2e2e3f; --color: white" detail button (click)="NotificarUnProblema()">
       <ion-label>Notificar un Problema</ion-label>
     </ion-item>
-    <ion-item style="--background: #2e2e3f; --color: white" detail button (click)="NotificarUnProblema()">
+    <ion-item style="--background: #2e2e3f; --color: white" detail button (click)="VerTerminosDeServicio()">
       <ion-label>Términos de Servicio</ion-label>
     </ion-item>
-    <ion-item style="--background: #2e2e3f; --color: white" detail button (click)="NotificarUnProblema()">
+    <ion-item style="--background: #2e2e3f; --color: white" detail button (click)="VerPoliticaPrivacidad()">
       <ion-label>Política de Privacidad</ion-label>
     </ion-item>
     <ion-item (click)="CerrarSesion()" style="--background: #2e2e3f; --color: white" detail button>
       Cerrar Sesión
     </ion-item>
   </ion-list>
+
+
+  <!-- <div>
+    Medallas
+
+
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let med of Medallas" size="3" sizeMd="2" sizeXl="1">
+          <ion-card style="border-radius: 50%; width: 100%; aspect-ratio: 1 / 1;">
+            H
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div> -->
 
 
 

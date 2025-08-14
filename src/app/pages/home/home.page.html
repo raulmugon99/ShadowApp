@@ -17,14 +17,18 @@
   </ion-header>
 
   <ion-card style="margin: 16px 0;">
-    <ion-card-header>
+    <div class="ion-padding" style="text-align: center;" *ngIf="bCargandoCasoActual">
+      <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-card-header *ngIf="!bCargandoCasoActual">
       <ion-card-title style="color: white;">{{ CasoActual.Titulo }}</ion-card-title>
       <ion-card-subtitle>Dificultad: 
         <ion-icon *ngFor="let star of dificultadArray" name="star" color="warning"></ion-icon>
       </ion-card-subtitle>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content *ngIf="!bCargandoCasoActual">
       <p style="color: lightgray; margin-bottom: 0px;">{{ CasoActual.Resumen }}</p>
       <p style="margin-top: 16px;"><strong>Tiempo restante:</strong> {{ tiempoRestante }}</p>
       <p style="margin-top: 8px;"><strong>Estado:</strong> {{ CasoActual.Resolucion?.length > 0 ? 'Resuelto' : 'Pendiente' }} </p>
@@ -37,20 +41,28 @@
 
 
   <ion-card style="margin: 16px 0 0 0;">
-    <ion-card-header>
+    <div class="ion-padding" style="text-align: center;" *ngIf="bCargandoCasoActual">
+      <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-card-header *ngIf="!bCargandoCasoActual">
       <ion-card-title style="color: white;">Tu Progreso</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content *ngIf="!bCargandoCasoActual">
       <p><strong>Ranking actual:</strong> #{{ ranking }}</p>
       <p><strong>Puntos acumulados:</strong> {{ puntos }}</p>
     </ion-card-content>
   </ion-card>
 
   <ion-card style="margin: 16px 0 0 0;">
-    <ion-card-header style="padding-bottom: 0;">
+    <div class="ion-padding" style="text-align: center;" *ngIf="bCargandoCasoActual">
+      <ion-spinner></ion-spinner>
+    </div>
+
+    <ion-card-header style="padding-bottom: 0;" *ngIf="!bCargandoCasoActual">
       <ion-card-title style="color: white;">Ranking Semanal</ion-card-title>
     </ion-card-header>
-    <ion-card-content style="padding: 0 20px 20px 6px;">
+    <ion-card-content style="padding: 0 20px 20px 6px;" *ngIf="!bCargandoCasoActual">
       <ion-list>
         <ion-item>
           <ion-label>
